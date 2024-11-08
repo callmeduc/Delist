@@ -2,7 +2,7 @@ import asyncHandler from "express-async-handler";
 
 const home = asyncHandler(async (req, res) => {
   try {
-    res.send("Service is running and analyzing ... in deist project.");
+    res.send("Home page ... in delist project.");
   } catch (error) {
     return res.status(400).json({ message: error });
   }

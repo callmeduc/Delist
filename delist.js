@@ -1,6 +1,7 @@
 import { writeToDoc } from "./utils/googleDocs.js";
 import { chromium } from "playwright";
 import sendEmail from "./utils/emailUtil.js";
+import axios from "axios";
 import {
   DOC_DELIST_ID,
   ADDRESS,
@@ -23,7 +24,7 @@ async function checkDelist() {
       const date = firstChildDivText.slice(-10).trim();
       const title = firstChildDivText.slice(0, -10).trim();
 
-      if (title !== previousTitle) {
+      if (title !== previousTitle && title.includes("Binance Will Delist")) {
         console.log("Text: ", firstChildDivText);
         console.log("Tiêu đề mới:", title);
         const now = new Date().toLocaleString("en-US", {
@@ -52,12 +53,12 @@ async function checkDelist() {
         axios.get(REQUEST_URL),
         page.reload({ waitUntil: "domcontentloaded" }),
       ]);
-      console.log('Request successful: ', response.data);
+      console.log("DELIST - Request ok: ", response.data);
       await checkAnnouncement();
     } catch (error) {
       console.error("Lỗi trong quá trình kiểm tra thông báo:", error);
     }
-  }, 133000);
+  }, 4 * 60 * 1000);
 }
 
 process.on("exit", async () => {

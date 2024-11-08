@@ -8,7 +8,7 @@ import {
   REFRESH_TOKEN,
 } from "./config.js";
 
-const REDIRECT_URI = "YOUR_REDIRECT_URI";
+const REDIRECT_URI = "https://developers.google.com/oauthplayground";
 const oAuth2Client = new google.auth.OAuth2(
   CLIENT_ID,
   CLIENT_SECRET,
@@ -38,6 +38,7 @@ const sendEmail = async (text = title, subject = title) => {
       to: EMAIL_USER,
       subject: subject,
       text: text,
+      // html: '<h1>This is a test email sent using OAuth2!</h1>',
     };
 
     await transporter.sendMail(mailOptions);
