@@ -51,7 +51,7 @@ async function checkDelist() {
     try {
       const [response] = await Promise.all([
         axios.get(REQUEST_URL),
-        page.goto(BINANCE_ANNOUNCE_URL, {
+        page.goto(ANNOUNCE_URL, {
           waitUntil: "domcontentloaded",
           timeout: 60000,
         }),
