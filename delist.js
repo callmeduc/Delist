@@ -49,23 +49,21 @@ async function checkDelist() {
 
   setInterval(async () => {
     try {
-      const [response] = await Promise.all([
-        axios.get(REQUEST_URL),
-        page.goto(ANNOUNCE_URL, {
-          waitUntil: "domcontentloaded",
-          timeout: 60000,
-        }),
-      ]);
+      const response = await axios.get(REQUEST_URL);
       console.log("DELIST - Request ok: ", response.data);
+      await page.goto(ANNOUNCE_URL, {
+        waitUntil: "domcontentloaded",
+        timeout: 73333,
+      });
       await checkAnnouncement();
     } catch (error) {
       console.error("Lỗi trong quá trình kiểm tra thông báo:", error);
     }
-  }, 4 * 60 * 1000);
+  }, 5 * 60 * 1000);
 }
 
-process.on("exit", async () => {
-  await browser.close();
-});
+// process.on("exit", async () => {
+//   await browser.close();
+// });
 
 export default checkDelist;

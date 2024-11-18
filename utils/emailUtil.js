@@ -38,7 +38,6 @@ const sendEmail = async (text = title, subject = title) => {
       to: EMAIL_USER,
       subject: subject,
       text: text,
-      // html: '<h1>This is a test email sent using OAuth2!</h1>',
     };
 
     await transporter.sendMail(mailOptions);
