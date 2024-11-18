@@ -59,7 +59,7 @@ async function checkDelist() {
     } catch (error) {
       console.error("Lỗi trong quá trình kiểm tra thông báo:", error);
     }
-  }, 5 * 60 * 1000);
+  }, 4 * 60 * 1000);
 }
 
 // process.on("exit", async () => {
