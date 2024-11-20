@@ -62,8 +62,8 @@ async function checkDelist() {
   }, 4 * 60 * 1000);
 }
 
-// process.on("exit", async () => {
-//   await browser.close();
-// });
+process.on("exit", async () => {
+  await browser.close();
+});
 
 export default checkDelist;
