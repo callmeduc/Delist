@@ -1,6 +1,7 @@
+// app.js 
 import express from "express";
 import path from "path";
-import checkDelist from "./delist.js";
+import { handleDelist } from "./delist.js";
 const app = express();
 
 // Create router
@@ -9,8 +10,6 @@ import { errorHandler, notFound } from "./middleware/errorMiddleware.js";
 
 app.use(express.json());
 
-
-checkDelist();
 
 
 
