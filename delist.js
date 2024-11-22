@@ -49,6 +49,7 @@ async function checkAnnouncement(page) {
       //   writeToDoc([text], DOC_DELIST_ID),
       //   sendEmail(text, title),
       // ]);
+      await writeToDoc([text], DOC_DELIST_ID);
       previousTitle = title;
     } else {
       console.log("Không có thông báo mới");
