@@ -37,7 +37,7 @@ async function checkAnnouncement(page) {
     const date = firstChildDivText.slice(-10).trim();
     const title = firstChildDivText.slice(0, -10).trim();
 
-    if (title !== previousTitle && title.includes("Binance Will Delist")) {
+    if (title !== previousTitle) {
       console.log("Text: ", firstChildDivText);
       console.log("Tiêu đề mới:", title);
       const now = new Date().toLocaleString("en-US", {
@@ -45,10 +45,10 @@ async function checkAnnouncement(page) {
         hour12: false,
       });
       const text = `${title} on ${ADDRESS}, at ${now}`;
-      await Promise.all([
-        writeToDoc([text], DOC_DELIST_ID),
-        sendEmail(text, title),
-      ]);
+      // await Promise.all([
+      //   writeToDoc([text], DOC_DELIST_ID),
+      //   sendEmail(text, title),
+      // ]);
       previousTitle = title;
     } else {
       console.log("Không có thông báo mới");
