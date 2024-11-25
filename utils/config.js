@@ -13,4 +13,5 @@ export const CLIENT_SECRET = process.env.CLIENT_SECRET;
 export const REFRESH_TOKEN = process.env.REFRESH_TOKEN;
 export const EMAIL = process.env.EMAIL;
 export const EMAIL_USER = process.env.EMAIL_USER;
-export const CRON_SCHEDULE = "*/3 * * * *";
+export const CRON_SCHEDULE = "*/4 * * * *";
+export const CRON_MINUTE_FIX = "1 * * * *";

@@ -10,6 +10,7 @@ import {
   ANNOUNCE_URL,
   REQUEST_URL,
   CRON_SCHEDULE,
+  CRON_MINUTE_FIX,
 } from "./utils/config.js";
 
 let browser;
@@ -24,8 +25,18 @@ async function initBrowser() {
 
 async function checkAnnouncement(page) {
   try {
+    // Chặn các tài nguyên không cần thiết
+    await page.route("**/*", (route) => {
+      const resourceType = route.request().resourceType();
+      if (["stylesheet", "image", "font"].includes(resourceType)) {
+        route.abort();
+      } else {
+        route.continue();
+      }
+    });
+
     await page.goto(ANNOUNCE_URL, {
-      waitUntil: "domcontentloaded",
+      waitUntil: "domcontentloaded", // Chỉ chờ DOMContentLoaded
       timeout: 30000,
     });
 
@@ -73,6 +84,7 @@ export async function handleDelist() {
 }
 
 cron.schedule(CRON_SCHEDULE, handleDelist);
+cron.schedule(CRON_MINUTE_FIX, handleDelist);
 
 process.on("exit", async () => {
   if (browser) {
