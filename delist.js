@@ -19,7 +19,7 @@ let previousTitle = "";
 async function initBrowser() {
   if (!browser || !browser.isConnected()) {
     console.log("Khởi chạy trình duyệt...");
-    browser = await chromium.launch({ headless: false });
+    browser = await chromium.launch({ headless: true });
   }
   return browser;
 }
