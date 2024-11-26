@@ -36,7 +36,7 @@ async function checkAnnouncement(page) {
     });
 
     await page.goto(ANNOUNCE_URL, {
-      waitUntil: "domcontentloaded",
+      waitUntil: "networkidle",
       timeout: 30000,
     });
 
