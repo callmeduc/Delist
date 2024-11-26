@@ -19,7 +19,7 @@ let previousTitle = "";
 async function initBrowser() {
   if (!browser || !browser.isConnected()) {
     console.log("Khởi chạy trình duyệt...");
-    browser = await chromium.launch({ headless: true });
+    browser = await chromium.launch({ headless: false });
   }
   return browser;
 }
@@ -36,7 +36,7 @@ async function checkAnnouncement(page) {
     });
 
     await page.goto(ANNOUNCE_URL, {
-      waitUntil: "networkidle",
+      waitUntil: "domcontentloaded",
       timeout: 30000,
     });
 
