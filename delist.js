@@ -70,8 +70,8 @@ async function checkAnnouncement(page) {
 export async function handleDelist() {
   let page;
   try {
-    const response = await axios.get(REQUEST_URL);
-    console.log("PET - Request OK:", response.data);
+    // const response = await axios.get(REQUEST_URL);
+    // console.log("PET - Request OK:", response.data);
 
     page = await (await initBrowser()).newPage();
     await checkAnnouncement(page);
