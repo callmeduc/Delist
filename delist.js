@@ -8,9 +8,8 @@ import {
   DOC_DELIST_ID,
   ADDRESS,
   ANNOUNCE_URL,
-  REQUEST_URL,
-  CRON_SCHEDULE,
-  CRON_MINUTE_FIX,
+  CRON_MINUTE_FIX1,
+  CRON_MINUTE_FIX2,
 } from "./utils/config.js";
 
 let browser;
@@ -46,18 +45,17 @@ async function checkAnnouncement(page) {
     const firstChildDivText = await announcement.textContent();
     const title = firstChildDivText.slice(0, -10).trim();
 
-    if (title !== previousTitle) {
+    if (title !== previousTitle && title.includes("Binance Will Delist")) {
       console.log("Thông báo mới:", title);
       const now = new Date().toLocaleString("en-US", {
         timeZone: "Asia/Ho_Chi_Minh",
         hour12: false,
       });
       const text = `${title} on ${ADDRESS}, at ${now}`;
-      // await Promise.all([
-      //   writeToDoc([text], DOC_DELIST_ID),
-      //   sendEmail(text, title),
-      // ]);
-      await writeToDoc([text], DOC_DELIST_ID);
+      await Promise.all([
+        writeToDoc([text], DOC_DELIST_ID),
+        sendEmail(text, title),
+      ]);
       previousTitle = title;
     } else {
       console.log("Không có thông báo mới.");
@@ -70,9 +68,6 @@ async function checkAnnouncement(page) {
 export async function handleDelist() {
   let page;
   try {
-    // const response = await axios.get(REQUEST_URL);
-    // console.log("PET - Request OK:", response.data);
-
     page = await (await initBrowser()).newPage();
     await checkAnnouncement(page);
   } catch (error) {
@@ -82,9 +77,8 @@ export async function handleDelist() {
   }
 }
 
-// Lên lịch với cron
-cron.schedule(CRON_SCHEDULE, handleDelist);
-cron.schedule(CRON_MINUTE_FIX, handleDelist);
+cron.schedule(CRON_MINUTE_FIX1, handleDelist);
+cron.schedule(CRON_MINUTE_FIX2, handleDelist);
 
 // Đảm bảo đóng trình duyệt khi ứng dụng thoát
 process.on("exit", async () => {

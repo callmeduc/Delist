@@ -14,10 +14,13 @@ export const REFRESH_TOKEN = process.env.REFRESH_TOKEN;
 export const EMAIL = process.env.EMAIL;
 export const EMAIL_USER = process.env.EMAIL_USER;
 export const CRON_SCHEDULE = "*/3 * * * *";
-export const CRON_MINUTE_FIX = "1 * * * *";
+export const CRON_MINUTE_FIX1 = "0 * * * *";
+export const CRON_MINUTE_FIX2 = "30 * * * *";
 
-export const BINANCE_API_URL = "https://api.binance.com/api/v3/klines";
-export const DOMAIN_URL = process.env.DOMAIN_URL || "https://delist-lxqt.onrender.com";
+export const BINANCE_API_URL =
+  process.env.BINANCE_API_URL || "https://api.binance.com/api/v3/klines";
+export const DOMAIN_URL =
+  process.env.DOMAIN_URL || "https://delist-lxqt.onrender.com";
 export const CRON_MARKET_1 = "10 * * * *";
 export const CRON_MARKET_2 = "40 * * * *";
 
