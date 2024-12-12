@@ -62,7 +62,7 @@ const analyzeMarket = async (symbol, INTERVAL = "1h") => {
       latestRSI.toFixed(2),
       latestMACD.histogram.toFixed(2),
       cmf.toFixed(3),
-      obv.toFixed(2),
+      Math.floor(obv),
       currentPrice.toFixed(3),
       signal,
     ];

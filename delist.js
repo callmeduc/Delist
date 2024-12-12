@@ -8,6 +8,8 @@ import {
   DOC_DELIST_ID,
   ADDRESS,
   ANNOUNCE_URL,
+  REQUEST_URL,
+  CRON_SCHEDULE,
   CRON_MINUTE_FIX1,
   CRON_MINUTE_FIX2,
 } from "./utils/config.js";
@@ -27,7 +29,7 @@ async function checkAnnouncement(page) {
   try {
     await page.route("**/*", (route) => {
       const resourceType = route.request().resourceType();
-      if (["stylesheet", "image", "font"].includes(resourceType)) {
+      if (["image", "font"].includes(resourceType)) {
         route.abort();
       } else {
         route.continue();
@@ -45,7 +47,7 @@ async function checkAnnouncement(page) {
     const firstChildDivText = await announcement.textContent();
     const title = firstChildDivText.slice(0, -10).trim();
 
-    if (title !== previousTitle && title.includes("Binance Will Delist")) {
+      if (title !== previousTitle && title.includes("Binance Will Delist")) {
       console.log("Thông báo mới:", title);
       const now = new Date().toLocaleString("en-US", {
         timeZone: "Asia/Ho_Chi_Minh",
@@ -68,6 +70,7 @@ async function checkAnnouncement(page) {
 export async function handleDelist() {
   let page;
   try {
+
     page = await (await initBrowser()).newPage();
     await checkAnnouncement(page);
   } catch (error) {
@@ -76,6 +79,7 @@ export async function handleDelist() {
     if (page) await page.close();
   }
 }
+
 
 cron.schedule(CRON_MINUTE_FIX1, handleDelist);
 cron.schedule(CRON_MINUTE_FIX2, handleDelist);

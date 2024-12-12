@@ -1,13 +1,21 @@
 {
-  "name": "delist",
+  "name": "cat",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
   "type": "module",
   "scripts": {
+    "client-install": "npm install --prefix client",
     "dev": "nodemon server.js",
     "start": "node server.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/callmeduc/Pizza.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "homepage": "https://github.com/callmeduc/Cat#readme",
   "dependencies": {
     "axios": "^1.7.7",
     "bluebird": "^3.7.2",
@@ -16,7 +24,9 @@
     "express-async-handler": "^1.2.0",
     "googleapis": "^144.0.0",
     "moment-timezone": "^0.5.46",
+    "mongoose": "^8.8.1",
     "node-cron": "^3.0.3",
+    "node-schedule": "^2.1.1",
     "nodemailer": "^6.9.16",
     "nodemon": "^3.1.7",
     "playwright": "^1.48.2",
