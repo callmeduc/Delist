@@ -290,7 +290,6 @@ ${styleCSS}
       <td data-label="Trend"><a href="${REQUEST_URL}/products?name=${x[1]}">${
         x[7]
       }</a></td>
-      <td data-label="Trend">${x[7]}</td>
     </tr>`
     )
     .join("")}
