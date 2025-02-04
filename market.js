@@ -20,6 +20,7 @@ import {
 } from "./utils/indicators.js";
 import cron from "node-cron";
 import Product from "./models/productModel.js";
+import Name from "./models/nameModel.js";
 dotenv.config();
 
 const analyzeMarket = async (symbol, INTERVAL = "1h") => {
@@ -87,13 +88,11 @@ const analyzeMarket = async (symbol, INTERVAL = "1h") => {
 
 // Hàm phân tích tất cả các thị trường
 const analyzeAllMarkets = async () => {
-  const data = await Promise.map(
-    cfg.SYMBOLS,
-    (symbol) => analyzeMarket(symbol),
-    {
-      concurrency: 5,
-    }
-  );
+  const names = await Name.find();
+  const nameList = names.map((entry) => entry.name) || cfg.SYMBOLS;
+  const data = await Promise.map(nameList, (symbol) => analyzeMarket(symbol), {
+    concurrency: 5,
+  });
   // Lọc bỏ các tín hiệu null
   const result = data.filter((signal) => signal !== null);
 

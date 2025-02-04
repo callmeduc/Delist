@@ -4,6 +4,7 @@ import { RSI_PERIOD, DOC_API_ID } from "./utils/config.js";
 import cfg from "./utils/cfg.json" assert { type: "json" };
 import { getKlines } from "./utils/binance.js";
 import { writeToDoc } from "./utils/googleDocs.js";
+import Name from "./models/nameModel.js";
 import {
   calculateRSI,
   calculateMACD,
@@ -74,8 +75,10 @@ const analyzeMarket = async (symbol, INTERVAL = "1h") => {
 
 // Hàm phân tích tất cả các thị trường
 const analyzeAllMarkets = async (INTERVAL) => {
+  const names = await Name.find();
+  const nameList = names.map((entry) => entry.name) || cfg.SYMBOLS;
   const data = await Promise.map(
-    cfg.SYMBOLS,
+    nameList,
     (symbol) => analyzeMarket(symbol, INTERVAL),
     {
       concurrency: 5,

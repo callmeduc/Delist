@@ -2,6 +2,7 @@ import asyncHandler from "express-async-handler";
 import analyzeMarket from "../analyzeMarket.js";
 import analyzeTrace from "../checkAll.js";
 import Product from "../models/productModel.js";
+import Name from "../models/nameModel.js";
 import cfg from "../utils/cfg.json" assert { type: "json" };
 import {
   tableBody,
@@ -29,7 +30,9 @@ const test = asyncHandler(async (req, res) => {
       .limit(200);
 
     const table = tableBody(products);
-    const buttonSubmit = submitTable(cfg.SYMBOLS);
+    const names = await Name.find();
+    const nameList = names.map((entry) => entry.name) || cfg.SYMBOLS;
+    const buttonSubmit = submitTable(nameList);
     const bodySend = tableTemplate(table, buttonSubmit);
 
     res.send(bodySend);
@@ -60,7 +63,9 @@ const getProducts = asyncHandler(async (req, res) => {
       .limit(200);
 
     const table = tableBody(products);
-    const buttonSubmit = submitTable(cfg.SYMBOLS);
+    const names = await Name.find();
+    const nameList = names.map((entry) => entry.name) || cfg.SYMBOLS;
+    const buttonSubmit = submitTable(nameList);
     const bodySend = tableTemplate(table, buttonSubmit);
 
     res.send(bodySend);
@@ -148,6 +153,15 @@ const handleName = asyncHandler(async (req, res) => {
     const { name } = req.body;
     const SYMBOL = name.toUpperCase().trim();
     let result = "Pls check again ";
+    if (SYMBOL) {
+      const existingName = await Name.findOne({ name: SYMBOL });
+      if (!existingName) {
+        const newName = new Name({ name: SYMBOL });
+        await newName.save();
+      } else {
+        await Name.deleteOne({ name: SYMBOL });
+      }
+    }
     if (SYMBOL) {
       if (cfg.SYMBOLS.includes(SYMBOL)) {
         cfg.SYMBOLS = cfg.SYMBOLS.filter((item) => item !== SYMBOL);
