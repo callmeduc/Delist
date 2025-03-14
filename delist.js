@@ -81,7 +81,7 @@ export async function handleDelist() {
 }
 
 
-cron.schedule(CRON_MINUTE_FIX1, handleDelist);
+// cron.schedule(CRON_MINUTE_FIX1, handleDelist);
 cron.schedule(CRON_MINUTE_FIX2, handleDelist);
 
 // Đảm bảo đóng trình duyệt khi ứng dụng thoát
