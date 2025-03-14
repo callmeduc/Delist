@@ -69,7 +69,9 @@ const analyzeMarket = async (symbol, INTERVAL = "1h") => {
     signal = "Up_";
   } else if (latestMACD.MACD < latestMACD.signal && latestMACD.histogram < 0) {
     signal = "Downtrend";
-  } else if (latestRSI < 23 && (latestMACD.histogram > 0 || cmf > 0)) {
+  }
+
+  if (latestRSI < 24 && (latestMACD.histogram > 0 || cmf > 0)) {
     signal = `${symbol} - Buy Signal (Oversold + Positive MACD)`;
     const text = `  At ${date}, ${signal} on ${ADDRESS}. With Price: ${currentPrice}, RSI: ${latestRSI}, MACD: ${latestMACD.histogram.toFixed(
       2
@@ -78,7 +80,8 @@ const analyzeMarket = async (symbol, INTERVAL = "1h") => {
       writeToDoc([text], DOC_SIGNAL_ID),
       sendEmail(text, signal),
     ]);
-  } else if (latestRSI > 81 && (latestMACD.histogram < 0 || cmf < 0)) {
+  }
+  if (latestRSI > 81 && (latestMACD.histogram < 0 || cmf < 0)) {
     signal = `${symbol} - Sell Signal (Overbought + Negative MACD)`;
     const text = `  At ${date}, ${signal} on ${ADDRESS}. With Price: ${currentPrice}, RSI: ${latestRSI}, MACD: ${latestMACD.histogram.toFixed(
       2
