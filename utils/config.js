@@ -2,14 +2,16 @@ import dotenv from "dotenv";
 dotenv.config();
 
 export const BINANCE_API_URL = "https://api.binance.com/api/v3/klines";
+export const URL_ACTIVE = "https://pet-sykx.onrender.com";
 export const ANNOUNCE_URL =
   process.env.ANNOUNCE_URL ||
-  "https://www.binance.com/en/support/announcement/delisting?c=161&navId=161&hl=en";
+  "https://www.binance.com/en/support/announcement/list/48";
 export const REQUEST_URL = process.env.REQUEST_URL;
 export const DOMAIN_URL = process.env.DOMAIN_URL;
 export const CRON_SCHEDULE = "*/4 * * * *";
 export const CRON_MINUTE_FIX1 = "1 * * * *";
 export const CRON_MINUTE_FIX2 = "31 * * * *";
+export const CRON_MINUTE_FIX3 = "17 * * * *";
 export const CRON_MARKET_1 = "10 * * * *";
 export const CRON_MARKET_2 = "40 * * * *";
 export const CRON_MARKET = "0 23,5,11,17 * * *";

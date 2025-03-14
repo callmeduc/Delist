@@ -3,6 +3,7 @@ import path from "path";
 import bodyParser from "body-parser";
 import analyzeAllMarkets from "./market.js";
 import { handleDelist } from "./delist.js";
+import { activeWeb } from "./active.js";
 import "./utils/removeData.js";
 const app = express();
 
