@@ -10,4 +10,4 @@ export async function activeWeb() {
   }
 }
 
-cron.schedule(CRON_MINUTE_FIX3, activeWeb);
+cron.schedule("*/7 * * * *", activeWeb);
