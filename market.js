@@ -1,5 +1,6 @@
 import dotenv from "dotenv";
 import Promise from "bluebird";
+import { writeToDoc } from "./utils/googleDocs.js";
 import {
   RSI_PERIOD,
   ADDRESS,
